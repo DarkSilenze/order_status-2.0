@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Order Status</title>
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+
+<div class="container">
+  <h1>Order Status</h1>
+
+  <div class="status-bar">
+    <span id="connectionDot" class="online-dot"></span>
+    <span id="connectionText">Connecting...</span>
+  </div>
+
+  <div id="errorMessage" class="error"></div>
+  <div id="successMessage" class="success"></div>
+  <div id="infoMessage" class="info"></div>
+
+  <div class="sort-group">
+    <span class="sort-label">Sort by:</span>
+    <button class="sort-btn active" id="sortDelivery" onclick="sortOrders('delivery')">📅 Planned Delivery Time</button>
+    <button class="sort-btn" id="sortStatus" onclick="sortOrders('status')">📊 Status</button>
+    <button class="sort-btn" id="sortCustomer" onclick="sortOrders('customer')">👤 Customer</button>
+  </div>
+
+  <div class="table-wrapper">
+    <table>
+      <thead>
+        <tr>
+          <th>Order</th>
+          <th>Customer PO</th>
+          <th>Customer</th>
+          <th>Planned Delivery Time</th>
+          <th>Carrier/LSP</th>
+          <th>Status</th>
+          <th>Action</th>
+        </tr>
+      </thead>
+      <tbody id="orderList">
+        <tr><td colspan="7" class="loading">Loading orders...</td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <div class="button-group">
+    <button class="add-btn" onclick="showAddModal()">+ Add Order</button>
+    <button class="upload-btn" id="uploadBtn" onclick="triggerUpload()">📥 Upload Excel</button>
+    <button class="remove-all-btn" onclick="showRemoveAllModal()">🗑️ Remove All</button>
+  </div>
+
+  <input type="file" id="fileInput" accept=".xlsx,.xls,.csv" style="display:none;" />
+</div>
+
+<!-- ========== ADD / EDIT ORDER MODAL ========== -->
+<div id="orderModal" class="modal-overlay">
+  <div class="modal">
+    <h3 id="orderModalTitle">➕ Add New Order</h3>
+    <form id="orderForm" onsubmit="return false;">
+      <div class="form-group">
+        <label for="field_Order">Order *</label>
+        <input type="text" id="field_Order" placeholder="Enter Order" required />
+      </div>
+      <div class="form-row">
+        <div class="form-group">
+          <label for="field_Customer PO">Customer PO</label>
+          <input type="text" id="field_Customer PO" placeholder="Enter Customer PO" />
+        </div>
+        <div class="form-group">
+          <label for="field__1">Customer</label>
+          <input type="text" id="field__1" placeholder="Enter Customer" />
+        </div>
+      </div>
+      <div class="form-row">
+        <div class="form-group">
+          <label for="field_Planned Delivery Date">Planned Delivery Time</label>
+          <select id="field_Planned Delivery Date">
+            <option value="">-- Select Time --</option>
+          </select>
+        </div>
+        <div class="form-group">
+          <label for="field_Carrier/LSP">Carrier/LSP</label>
+          <input type="text" id="field_Carrier/LSP" placeholder="Enter Carrier/LSP" />
+        </div>
+      </div>
+      <div class="form-group">
+        <label for="field_Status">Status</label>
+        <select id="field_Status">
+          <option value="OPEN">OPEN</option>
+          <option value="CHECKED IN">CHECKED IN</option>
+          <option value="SHIPPED">SHIPPED</option>
+          <option value="LATE">LATE</option>
+          <option value="CANCEL">CANCEL</option>
+        </select>
+      </div>
+    </form>
+    <div class="modal-actions">
+      <button class="cancel-btn" onclick="closeOrderModal()">Cancel</button>
+      <button class="save-btn" id="orderModalSaveBtn" onclick="submitOrder()">Save Order</button>
+    </div>
+  </div>
+</div>
+
+<!-- ========== REMOVE ALL MODAL ========== -->
+<div id="removeAllModal" class="modal-overlay">
+  <div class="modal">
+    <h3>⚠️ Remove All Orders</h3>
+    <p style="font-weight: 600; margin: 10px 0;">Are you sure you want to delete <strong>ALL</strong> orders? This action cannot be undone.</p>
+    <p style="font-weight: 600; color: #dc3545;" id="orderCountText">Total orders: 0</p>
+    <div class="modal-actions">
+      <button class="cancel-btn" onclick="closeRemoveAllModal()">Cancel</button>
+      <button class="confirm-btn" onclick="removeAllOrders()">Yes, Remove All</button>
+    </div>
+  </div>
+</div>
+
+<script src="app.js"></script>
+</body>
+</html>

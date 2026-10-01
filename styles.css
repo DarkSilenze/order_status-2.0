@@ -1,0 +1,99 @@
+* { box-sizing: border-box; }
+body { margin: 0; padding: 20px; font-family: Arial, sans-serif; background: #f5f5f5; }
+.container { width: 100%; max-width: 95%; margin: auto; background: white; padding: 20px; border-radius: 12px; box-shadow: 0 4px 15px rgba(0,0,0,0.1); }
+h1 { margin: 0 0 20px; font-size: 24px; font-weight: 900; }
+.status-bar { display: flex; align-items: center; gap: 8px; margin-bottom: 15px; font-size: 13px; color: #666; font-weight: 600; }
+.online-dot     { background-color: #28a745; }
+.offline-dot    { background-color: #dc3545; }
+.connecting-dot { background-color: #ffc107; }
+.table-wrapper { width: 100%; overflow-x: auto; }
+table { width: 100%; border-collapse: collapse; table-layout: fixed; }
+th, td { padding: 8px; text-align: left; border-bottom: 1px solid #ddd; }
+th { background: #f0f0f0; font-size: 14px; font-weight: 900; }
+td { font-weight: 600; }
+th:nth-child(1) { width: 12%; }
+th:nth-child(2) { width: 13%; }
+th:nth-child(3) { width: 16%; }
+th:nth-child(4) { width: 16%; }
+th:nth-child(5) { width: 13%; }
+th:nth-child(6) { width: 13%; }
+th:nth-child(7) { width: 17%; }
+
+.data-value { display: block; width: 100%; padding: 7px; font-size: 13px; line-height: 1.3; word-break: break-word; font-weight: 600; }
+
+.row-OPEN { background-color: #ffffff !important; } .row-OPEN td { background-color: #ffffff !important; }
+.row-CHECKED-IN { background-color: #c4da00 !important; } .row-CHECKED-IN td { background-color: #eeff59 !important; }
+.row-SHIPPED { background-color: #45c704 !important; } .row-SHIPPED td { background-color: #90FF59 !important; }
+.row-LATE { background-color: #FF5959 !important; } .row-LATE td { background-color: #FF5959 !important; }
+.row-CANCEL { background-color: #5B9BFF !important; } .row-CANCEL td { background-color: #5B9BFF !important; }
+
+.status-select { padding: 4px 6px; border-radius: 4px; border: 1px solid #ddd; font-size: 12px; width: 100%; cursor: pointer; font-weight: 700; color: #333333 !important; }
+.status-select.OPEN { background: #ffffff; }
+.status-select.CHECKED-IN { background: #eeff59; }
+.status-select.SHIPPED { background: #389e06; color: #ffffff !important; }
+.status-select.LATE { background: #FF5959; color: #ffffff !important; }
+.status-select.CANCEL { background: #5B9BFF; color: #ffffff !important; }
+
+button { border: none; border-radius: 6px; padding: 8px 10px; color: white; cursor: pointer; font-size: 13px; font-weight: 700; }
+.add-btn { margin-top: 15px; background: #007bff; font-weight: 700; }
+.add-btn:hover { background: #0056b3; }
+.upload-btn { margin-top: 15px; background: #17a2b8; font-weight: 700; }
+.upload-btn:hover { background: #117a8b; }
+.remove-all-btn { margin-top: 15px; background: #dc3545; font-weight: 700; }
+.remove-all-btn:hover { background: #b02a37; }
+.sort-btn { background: #6c757d; font-weight: 700; padding: 8px 14px; }
+.sort-btn:hover { background: #5a6268; }
+.sort-btn.active { background: #28a745; }
+.sort-btn.active:hover { background: #218838; }
+.remove-btn { background: #dc3545; width: auto; padding: 5px 8px; font-size: 11px; border-radius: 4px; margin: 0; font-weight: 700; }
+.remove-btn:hover { background: #b02a37; }
+.edit-btn { background: #007bff; width: auto; padding: 5px 8px; font-size: 11px; border-radius: 4px; margin: 0; font-weight: 700; }
+.edit-btn:hover { background: #0056b3; }
+.loading { text-align: center; padding: 20px; color: #777; font-weight: 600; }
+.error { background: #f8d7da; color: #721c24; padding: 10px; border-radius: 6px; margin-bottom: 15px; display: none; font-weight: 600; }
+.success { background: #d4edda; color: #155724; padding: 10px; border-radius: 6px; margin-bottom: 15px; display: none; font-weight: 600; }
+.info { background: #d1ecf1; color: #0c5460; padding: 10px; border-radius: 6px; margin-bottom: 15px; display: none; font-weight: 600; }
+.action-cell { display: flex; gap: 4px; flex-wrap: wrap; }
+.button-group { display: flex; gap: 10px; flex-wrap: wrap; margin-top: 15px; }
+.sort-group { display: flex; gap: 8px; flex-wrap: wrap; margin-top: 10px; margin-bottom: 10px; }
+.sort-label { font-weight: 700; font-size: 14px; color: #333; display: flex; align-items: center; }
+.modal-overlay { display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.5); z-index: 1000; justify-content: center; align-items: center; }
+.modal { background: white; padding: 25px; border-radius: 12px; max-width: 500px; width: 90%; max-height: 90vh; overflow-y: auto; box-shadow: 0 4px 20px rgba(0,0,0,0.3); }
+.modal h3 { margin-top: 0; font-weight: 900; }
+.modal button { padding: 10px 20px; margin: 5px; border: none; border-radius: 6px; cursor: pointer; font-weight: 700; font-size: 14px; }
+.modal .confirm-btn { background: #dc3545; color: white; }
+.modal .confirm-btn:hover { background: #b02a37; }
+.modal .cancel-btn { background: #6c757d; color: white; }
+.modal .cancel-btn:hover { background: #5a6268; }
+.modal .save-btn { background: #28a745; color: white; }
+.modal .save-btn:hover { background: #218838; }
+.modal-actions { display: flex; gap: 10px; justify-content: flex-end; margin-top: 15px; }
+
+/* Form styles inside modal */
+.form-group { margin-bottom: 12px; }
+.form-group label { display: block; font-weight: 700; font-size: 13px; margin-bottom: 4px; color: #333; }
+.form-group input, .form-group select { width: 100%; padding: 8px; border: 1px solid #ddd; border-radius: 4px; font-size: 13px; font-weight: 600; color: #333; }
+.form-group input:focus, .form-group select:focus { outline: none; border-color: #007bff; box-shadow: 0 0 0 2px rgba(0,123,255,0.15); }
+.form-group input:disabled { background: #e9ecef; cursor: not-allowed; }
+.form-row { display: flex; gap: 12px; }
+.form-row .form-group { flex: 1; }
+
+.spinner { display: inline-block; width: 12px; height: 12px; border: 2px solid rgba(255,255,255,0.4); border-top-color: white; border-radius: 50%; animation: spin 0.8s linear infinite; vertical-align: middle; margin-right: 6px; }
+@keyframes spin { to { transform: rotate(360deg); } }
+
+@media (max-width: 700px) {
+  body { padding: 8px; }
+  .container { padding: 12px; border-radius: 8px; max-width: 100%; }
+  h1 { font-size: 20px; font-weight: 900; }
+  th, td { padding: 5px; }
+  th { font-size: 12px; font-weight: 900; }
+  td { font-weight: 600; }
+  .data-value, button { font-size: 12px; padding: 6px; font-weight: 600; }
+  table { min-width: 850px; }
+  .status-select { font-weight: 700; }
+  .status-bar { font-weight: 600; }
+  .sort-group { flex-direction: column; align-items: stretch; }
+  .sort-btn { width: 100%; }
+  .form-row { flex-direction: column; gap: 0; }
+  .modal { padding: 18px; }
+}
